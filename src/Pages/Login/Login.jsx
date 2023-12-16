@@ -1,7 +1,6 @@
 import styles from "./Login.module.css";
-
-import { useEffect, useState } from "react";
-import { useAuthentication } from "../../Hooks/useAuthentication"
+import { useState, useEffect } from "react";
+import { useAuthentication } from "../../Hooks/useAuthentication";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,12 +20,10 @@ const Login = () => {
     };
 
     const res = await login(user);
-
     console.log(res);
   };
 
   useEffect(() => {
-    console.log(authError);
     if (authError) {
       setError(authError);
     }
@@ -35,7 +32,7 @@ const Login = () => {
   return (
     <div className={styles.login}>
       <h1>Entrar</h1>
-      <p>Faça o login para poder utilizar o sistema</p>
+      <p>Faça o login para ultilizar o sistema!</p>
       <form onSubmit={handleSubmit}>
         <label>
           <span>E-mail:</span>
@@ -44,8 +41,8 @@ const Login = () => {
             name="email"
             required
             placeholder="E-mail do usuário"
-            onChange={(e) => setEmail(e.target.value)}
             value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </label>
         <label>
@@ -54,14 +51,15 @@ const Login = () => {
             type="password"
             name="password"
             required
-            placeholder="Insira a senha"
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Insira sua senha"
             value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        {!loading && <button className="btn">Entrar</button>}
+
+        {!loading && <button type="submit" className="btn">Entrar</button>}
         {loading && (
-          <button className="btn" disabled>
+          <button type="submit" className="btn" disabled>
             Aguarde...
           </button>
         )}
