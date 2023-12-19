@@ -10,15 +10,17 @@ import {
 
 export const useFetchDocuments = (docCollection, search = null, uid = null) => {
   const [documents, setDocuments] = useState(null);
-  const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(null);
 
   // deal with memory leak
   const [cancelled, setCancelled] = useState(false);
 
   useEffect(() => {
-    const loadData = async () => {
-      if (cancelled) return;
+    async function loadData() {
+      if (cancelled) {
+        return;
+      }
 
       setLoading(true);
 
@@ -30,7 +32,7 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
         if (search) {
           q = await query(
             collectionRef,
-            where("tagsArray", "array-contains", search),
+            where("tags", "array-contains", search),
             orderBy("createdAt", "desc")
           );
         } else if (uid) {
@@ -51,16 +53,18 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
             }))
           );
         });
-
-        setLoading(false);
       } catch (error) {
-        console.log(`Error fetching documents ${error}`);
+   
         setError(error.message);
-        setLoading(false);
       }
-    };
+
+      setLoading(false);
+    }
+
     loadData();
   }, [docCollection, search, uid, cancelled]);
+
+
 
   useEffect(() => {
     return () => setCancelled(true);

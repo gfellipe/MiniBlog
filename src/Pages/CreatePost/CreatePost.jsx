@@ -37,17 +37,6 @@ const CreatePost = () => {
       setFormError("Por favor, preencha todos os campos!");
     }
 
-    console.log(tagsArray);
-
-    console.log({
-      title,
-      image,
-      body,
-      tags: tagsArray,
-      uid: user.uid,
-      createdBy: user.displayName,
-    });
-
     if (formError) return;
 
     insertDocument({

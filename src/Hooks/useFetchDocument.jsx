@@ -4,8 +4,8 @@ import { doc, getDoc } from "firebase/firestore";
 
 export const useFetchDocument = (docCollection, id) => {
   const [document, setDocument] = useState(null);
-  const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(null);
 
   useEffect(() => {
     const loadDocument = async () => {
@@ -17,15 +17,17 @@ export const useFetchDocument = (docCollection, id) => {
 
         setDocument(docSnap.data());
       } catch (error) {
-        console.log("Error getting document:", error.message);
+    
         setError(error.message);
-      } finally {
-        setLoading(false);
       }
+
+      setLoading(false);
     };
 
     loadDocument();
   }, [docCollection, id]);
+
+
 
   return { document, loading, error };
 };

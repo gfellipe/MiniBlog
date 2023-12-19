@@ -20,7 +20,6 @@ const Login = () => {
     };
 
     const res = await login(user);
-    console.log(res);
   };
 
   useEffect(() => {
@@ -57,7 +56,11 @@ const Login = () => {
           />
         </label>
 
-        {!loading && <button type="submit" className="btn">Entrar</button>}
+        {!loading && (
+          <button type="submit" className="btn">
+            Entrar
+          </button>
+        )}
         {loading && (
           <button type="submit" className="btn" disabled>
             Aguarde...
