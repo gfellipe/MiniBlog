@@ -6,13 +6,12 @@ import {
   orderBy,
   onSnapshot,
   where,
-  QuerySnapshot,
 } from "firebase/firestore";
 
 export const useFetchDocuments = (docCollection, search = null, uid = null) => {
   const [documents, setDocuments] = useState(null);
   const [loading, setLoading] = useState(null);
-  const [error, seterror] = useState(null);
+  const [error, setError] = useState(null);
 
   // deal with memory leak
   const [cancelled, setCancelled] = useState(false);
@@ -34,6 +33,12 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
             where("tagsArray", "array-contains", search),
             orderBy("createdAt", "desc")
           );
+        } else if (uid) {
+          q = await query(
+            collectionRef,
+            where("uid", "==", uid),
+            orderBy("createdAt", "desc")
+          );
         } else {
           q = await query(collectionRef, orderBy("createdAt", "desc"));
         }
@@ -50,7 +55,7 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
         setLoading(false);
       } catch (error) {
         console.log(`Error fetching documents ${error}`);
-        seterror(error.message);
+        setError(error.message);
         setLoading(false);
       }
     };
