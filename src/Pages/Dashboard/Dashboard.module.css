@@ -47,7 +47,8 @@
 }
 
 .post_row p {
-  color: #000;
+  color: #7c7b7b;
+  font-weight: 600;
 }
 
 .post_row button,

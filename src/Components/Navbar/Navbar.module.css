@@ -1,12 +1,12 @@
 .navbar {
   display: flex;
-  box-shadow: rgba(0,0,0, .15) 0px -2px 10px 0px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px -2px 10px 0px;
   justify-content: space-between;
   align-items: center;
-  padding: .5em 2em ;
+  padding: 0.5em 2em;
 }
 
-.brand{
+.brand {
   font-size: 1.5em;
 }
 
@@ -15,20 +15,95 @@
   text-transform: uppercase;
 }
 
-.link_list{
+.link_list {
   display: flex;
   list-style: none;
 }
 
-.link_list{
-  margin-right:  1em;
+.link_list {
+  margin-right: 1em;
 }
 
 .link_list li a {
-  padding: .4em .6em;
+  padding: 0.3em 0.6em;
 }
 
 .active {
-  background-color: #000;
+  background-color: #444;
   color: #fff;
 }
+
+
+/* Estilos com tema light */
+.navbar.light {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px -2px 10px 0px;
+}
+
+.navbar.light .brand {
+  color: #444;
+}
+
+.navbar.light .link_list li a {
+  color: #afadad;
+  font-weight: 500;
+}
+
+.navbar.light .active {
+  background-color: #444;
+  color: #fff;
+}
+
+/* Estilos com tema dark */
+.navbar.dark {
+  box-shadow: rgba(255, 255, 255, 0.15) 0px -2px 10px 0px;
+}
+
+.navbar.dark .brand {
+  color: #fff;
+}
+
+.navbar.dark .link_list li a {
+  color: #afadad;
+  font-weight: 500;
+}
+
+.navbar.dark .active {
+  background-color: #fff;
+  color: #444;
+}
+
+
+/* Estilos para as imagens do botão de alternância de tema */
+.themeToggle {
+  display: flex;
+  overflow: hidden;
+  border: 1px solid #ccc; 
+  border-radius: 10px; 
+}
+
+.themeToggle button {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.themeToggle button img {
+  width: 20px; 
+  height: auto;
+}
+
+.themeToggle.active button {
+  transform: translateX(-50%); 
+}
+
+.themeToggle.active button img.sun {
+  opacity: 0;
+}
+
+.themeToggle.active button img.moon {
+  opacity: 1; 
+}
+

@@ -1,18 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 import { useAuthentication } from "../../Hooks/useAuthentication";
 import { useAuthValue } from "../../Context/AuthContext";
 
-const Navbar = () => {
+import Sun from "../../assets/sun.svg";
+import Moon from "../../assets/moon.svg";
+
+const Navbar = ({ toggleTheme, theme }) => {
   const { user } = useAuthValue();
   const { logout } = useAuthentication();
+  const [active, setActive] = useState(false);
+
+  // Adicione a classe "active" ao clicar
+  const handleClick = () => {
+    setActive(!active);
+    toggleTheme();
+  };
+
+  // Função para mudar o ícone do botão do tema
+  const getThemeIcon = () => {
+    if (theme === "light") {
+      return Sun;
+    } else {
+      return Moon;
+    }
+  };
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={`${styles.navbar} ${styles[theme]}`}>
       <NavLink to="/" className={styles.brand}>
-        Mini <span>Vibe</span>
+        Happy <span>Moments</span>
       </NavLink>
       <ul className={styles.link_list}>
         <li>
@@ -71,12 +90,28 @@ const Navbar = () => {
             </li>
           </>
         )}
-        {user &&
-        (
+        {user && (
           <li>
-            <button onClick={logout}>Sair</button>
+            <NavLink
+            >
+              <button onClick={logout}>Sair</button>
+            </NavLink>
           </li>
         )}
+        <li>
+          <div className={styles.themeToggle}>
+            <button
+              className={active ? styles.active : ""}
+              onClick={handleClick}
+            >
+              <img
+                className={`${theme === "light" ? styles.sun : styles.moon}`}
+                src={getThemeIcon()}
+                alt={theme === "light" ? "Light mode" : "Dark mode"}
+              />
+            </button>
+          </div>
+        </li>
       </ul>
     </nav>
   );

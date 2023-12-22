@@ -6,7 +6,7 @@ import { useAuthValue } from "../../Context/AuthContext";
 import { useFetchDocuments } from "../../Hooks/useFetchDocuments";
 import { useDeleteDocument } from "../../Hooks/useDeleteDocument";
 
-const Dashboard = () => {
+const Dashboard = ({theme}) => {
   const { user } = useAuthValue();
   const uid = user.uid;
 
@@ -19,7 +19,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className={styles.dashboard}>
+    <div className={`${styles.dashboard} ${styles[theme]} ${theme === 'dark' ? styles.darkMode : ''}`}>
       <h2>Dashboard</h2>
       <p>Gerencie os seus posts</p>
       {posts && posts.length === 0 ? (

@@ -25,6 +25,7 @@ import EditPost from "./Pages/EditPost/EditPost";
 const App = () => {
   const [user, setUser] = useState(undefined);
   const { auth } = useAuthentication();
+  const [theme, setTheme] = useState("light");
 
   const loadingUser = user === undefined;
 
@@ -34,15 +35,19 @@ const App = () => {
     });
   }, [auth]);
 
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
+
   if (loadingUser) {
     return <p>Carregando...</p>;
   }
 
   return (
-    <div className="App">
+    <div className={`App ${theme}`}>
       <AuthProvider value={{ user }}>
         <BrowserRouter>
-          <Navbar />
+          <Navbar toggleTheme={toggleTheme} theme={theme} />
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -66,12 +71,13 @@ const App = () => {
                 element={user ? <CreatePost /> : <Navigate to="login" />}
               />
               <Route
+                theme={theme}
                 path="/dashboard"
                 element={user ? <Dashboard /> : <Navigate to="login" />}
               />
             </Routes>
           </div>
-          <Footer />
+          <Footer theme={theme} />
         </BrowserRouter>
       </AuthProvider>
     </div>

@@ -6,3 +6,14 @@
   justify-content: center;
   background-color: #edf3f6;
 }
+
+.footer.light {
+  background-color: #edf3f6;
+  color: #000;
+}
+
+/* Estilos com tema dark */
+.footer.dark {
+  background-color: #595858;
+  color: #fff;
+}
